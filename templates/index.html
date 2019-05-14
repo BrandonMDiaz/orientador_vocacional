@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Orientador Vocacional</title>
+	<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='main.css')}}">
+	
+</head>
+<body>
+	<div class="titulo">
+		<h1>Orientador vocacional</h1>
+	</div>
+	
+	<div class="contenedor-preguntas">
+		<div class="pregunta">
+			<h1 id="pregunta">ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+			tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+			quis nostrud</h1>
+		</div>
+		<div class="respuestas">
+			<button id="pregunta1">aaaaaaaaaaaaaaaa</button>
+			<button id="pregunta2">aaaaaaaaaaaaaa</button>
+		
+			<button id="pregunta3">aaaaaaaaaaaaaaaaa</button>
+			<button id="pregunta4">aaaaaaaaaaaaaaa</button>		
+		</div>
+	</div>
+
+</body>
+<script type="text/javascript">
+	
+	let indicePregunta = 0;
+	let preguntas = [
+	"¿Qué tanto te gusta resolver problemas matematicos?",
+	"Hola",
+	"",
+	"",
+	"",
+	"",
+	"",
+	"",
+	"",
+	"",
+	""
+	];
+	let respuestas = [
+	{
+		respuesta1:"Me encanta",
+		respuesta2:"Me gusta",
+		respuesta3:"No mucho",
+		respuesta4:"Nada"
+	},
+	{
+		respuesta1:"Me encanta",
+		respuesta2:"Me gusta",
+		respuesta3:"No mucho",
+		respuesta4:"Nada"
+	},
+	{
+		respuesta1:"Me encanta",
+		respuesta2:"Me gusta",
+		respuesta3:"No mucho",
+		respuesta4:"Nada"
+	},
+	{
+		respuesta1:"Me encanta",
+		respuesta2:"Me gusta",
+		respuesta3:"No mucho",
+		respuesta4:"Nada"
+	},
+	];
+
+//**********************************//
+//***********Funciones *************//
+//**********************************//
+
+	window.onload = function() {
+		cambiarPregunta();
+		cambiarRespuestas();
+	};
+
+	function cambiarPregunta(){
+		document.getElementById("pregunta").innerHTML = preguntas[indicePregunta];
+	}
+	function cambiarRespuestas(){
+		document.getElementById("pregunta1").innerHTML = respuestas[indicePregunta].respuesta1
+		document.getElementById("pregunta2").innerHTML = respuestas[indicePregunta].respuesta2
+		document.getElementById("pregunta3").innerHTML = respuestas[indicePregunta].respuesta3
+		document.getElementById("pregunta4").innerHTML = respuestas[indicePregunta].respuesta4
+
+	}
+	function botonPrecionado(peso) {
+		indicePregunta++;
+		cambiarPregunta();
+	}
+	document.getElementById("pregunta1").onclick = function(){
+		botonPrecionado()
+	}
+	document.getElementById("pregunta2").onclick = function(){
+		botonPrecionado()
+	}
+	document.getElementById("pregunta3").onclick = function(){
+		botonPrecionado()
+	}
+	document.getElementById("pregunta4").onclick = function(){
+		botonPrecionado()
+	}
+
+</script>
+</html>
