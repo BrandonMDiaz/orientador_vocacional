@@ -3,13 +3,12 @@
 <head>
 	<title>Orientador Vocacional</title>
 	<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='main.css')}}">
-	
 </head>
 <body>
 	<div class="titulo">
 		<h1>Orientador vocacional</h1>
 	</div>
-	
+
 	<div class="contenedor-preguntas">
 		<div class="pregunta">
 			<h1 id="pregunta">ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
@@ -17,56 +16,79 @@
 			quis nostrud</h1>
 		</div>
 		<div class="respuestas">
-			<button id="pregunta1">aaaaaaaaaaaaaaaa</button>
-			<button id="pregunta2">aaaaaaaaaaaaaa</button>
-		
-			<button id="pregunta3">aaaaaaaaaaaaaaaaa</button>
-			<button id="pregunta4">aaaaaaaaaaaaaaa</button>		
+			<button id="respuesta1"></button>
+			<button id="respuesta2"></button>
+
+			<button id="respuesta3"></button>
+			<button id="respuesta4"></button>
 		</div>
 	</div>
 
 </body>
 <script type="text/javascript">
-	
+
+	// function preguntar(cadena){
+	// 	let result;
+	// 	fetch('http://127.0.0.1:5000/api', method: 'post', body:JSON.stringify(cadena))
+	// 		.then(function(response){
+	// 			return response.json();
+	// 		})
+	// 		.then(function(data){
+	// 			result = data
+	// 		});
+	// 	return result;
+	// }
+
+	let responseJson = {
+		linguistico:0,
+		mate:0,
+		espacio:0,
+		interpersonal:0,
+		creativa:0
+	}
+	let aptitudes = {
+		linguistico_verbal: 0,
+		mate: 0,
+		espacio_visual:0,
+		interpersonal:0,
+		creativa:0
+	}
+
 	let indicePregunta = 0;
 	let preguntas = [
-	"¿Qué tanto te gusta resolver problemas matematicos?",
-	"Hola",
-	"",
-	"",
-	"",
-	"",
-	"",
-	"",
-	"",
-	"",
-	""
+	["¿Qué tanto te gusta resolver problemas matematicos?",["mate"]],
+	["¿Te gusta Leer y ser autodidacta?",["linguistico_verbal"]],
+	["¿Eres bueno para trabajar bajo presion?",["creativa"]],
+	["¿Tienes habilidades o gusto por el diseño?",["creativa","espacio"]],
+	["¿Te consideras una persona imaginativa?",["creativa","espacio"]],
+	["¿Eres bueno redactando documentos?",["linguistico_verbal"]],
+	["¿Tienes facilidad para hablar y dar a enterder tus ideas?",["linguistico_verbal"]],
+	["¿Tienes habilidades para pensar abstractamente?",["mate"]],
+	["¿Qué tanto te gusta la física?",["mate"]],
+	["¿Eres bueno para resolver problemas de logica?",["mate"]],
+	["¿Te gusta resolver problemas de cualquier tipo?",["mate"]],
+	["¿Te gusta trabajar en lugares abiertos?",["espacio"]],
+	["¿Eres bueno para observar cosas que nadie mas ve?",["espacio"]],
+	["¿Tienes facilidad para adaptarte a diferentes ambientes?",["interpersonal"]],
+	["¿Tienes gusto por ayudar a los demas?",["interpersonal"]],
+	["¿Tienes cualidades de un lider?",["interpersonal"]],
+	["¿Eres bueno para trabar en equipo?",["interpersonal"]],
+	["¿Tienes un gran gusto por la innovacion?",["creativa"]],
+	["¿Tienes gusto por la oratoria?",["linguistico_verbal"]],
+	["¿Tienes gusto por aprender idiomas?",["linguistico_verbal"]],
+	["¿Bueno para acomodar cosas en un espacio definido?",["espacio"]],
+	["¿Eres bueno relacionandote con otras personas?",["interpersonal"]],
+	];
+	let tipoPregunta = [
+		'mate',
 	];
 	let respuestas = [
 	{
 		respuesta1:"Me encanta",
-		respuesta2:"Me gusta",
+		respuesta2:"Algo",
 		respuesta3:"No mucho",
 		respuesta4:"Nada"
-	},
-	{
-		respuesta1:"Me encanta",
-		respuesta2:"Me gusta",
-		respuesta3:"No mucho",
-		respuesta4:"Nada"
-	},
-	{
-		respuesta1:"Me encanta",
-		respuesta2:"Me gusta",
-		respuesta3:"No mucho",
-		respuesta4:"Nada"
-	},
-	{
-		respuesta1:"Me encanta",
-		respuesta2:"Me gusta",
-		respuesta3:"No mucho",
-		respuesta4:"Nada"
-	},
+	}
 	];
 
 //**********************************//
@@ -79,31 +101,140 @@
 	};
 
 	function cambiarPregunta(){
-		document.getElementById("pregunta").innerHTML = preguntas[indicePregunta];
+		document.getElementById("pregunta").innerHTML = preguntas[indicePregunta][0];
 	}
 	function cambiarRespuestas(){
-		document.getElementById("pregunta1").innerHTML = respuestas[indicePregunta].respuesta1
-		document.getElementById("pregunta2").innerHTML = respuestas[indicePregunta].respuesta2
-		document.getElementById("pregunta3").innerHTML = respuestas[indicePregunta].respuesta3
-		document.getElementById("pregunta4").innerHTML = respuestas[indicePregunta].respuesta4
+		document.getElementById("respuesta1").innerHTML = respuestas[indicePregunta].respuesta1
+		document.getElementById("respuesta2").innerHTML = respuestas[indicePregunta].respuesta2
+		document.getElementById("respuesta3").innerHTML = respuestas[indicePregunta].respuesta3
+		document.getElementById("respuesta4").innerHTML = respuestas[indicePregunta].respuesta4
+	}
 
+	document.getElementById("respuesta1").onclick = function(){
+		botonPrecionado(10)
 	}
-	function botonPrecionado(peso) {
+	document.getElementById("respuesta2").onclick = function(){
+		botonPrecionado(6.6)
+	}
+	document.getElementById("respuesta3").onclick = function(){
+		botonPrecionado(3.3)
+	}
+	document.getElementById("respuesta4").onclick = function(){
+		botonPrecionado(0)
+	}
+
+	// ling: 30   -   22.5		-		21					50
+	// mate: 50	-		37.5		-		35						50
+	// espaci 40															50
+	// interpersonal 40	-	30	-28							50
+	// cretividad 40		- 30		-28
+
+	function analizarAptitudes(){
+		if(aptitudes.linguistico_verbal > 35){
+			responseJson.linguistico = 1;
+		}
+		if(aptitudes.mate > 35){
+			responseJson.mate = 1;
+		}
+		if(aptitudes.espacio_visual > 35){
+			responseJson.espacio = 1;
+		}
+		if(aptitudes.interpersonal > 35){
+			responseJson.interpersonal = 1;
+		}
+		if(aptitudes.creativa > 28){
+			responseJson.creativa = 1;
+		}
+	}
+
+	function getCarrera(){
+		return fetch('http://127.0.0.1:5000/api', {
+				headers: {
+					'Accept': 'application/json',
+					'Content-Type': 'application/json'
+				},
+				method: 'POST',
+				body: JSON.stringify(responseJson)
+	 		}).then(function(response){
+				return response.json().then(function(data){
+					return data;
+					console.log(data);
+				});
+			});
+
+			//.then(function(response) {
+				// 	return response.json();
+				// }).then(function(data) {
+				// 	console.log(data)
+				// });
+	}
+
+	function addPeso(peso){
+		preguntas[indicePregunta][1].forEach(function(tipo){
+			switch (tipo) {
+				case 'linguistico_verbal':
+					aptitudes.linguistico_verbal += peso;
+					break;
+				case 'mate':
+					aptitudes.mate += peso;
+					break;
+				case 'espacio':
+					aptitudes.espacio_visual += peso;
+					break;
+				case 'interpersonal':
+					aptitudes.interpersonal += peso;
+					break;
+				case 'creativa':
+					aptitudes.creativa += peso;
+					break;
+				default:
+			}
+		});
+	}
+
+function showCarreras(){
+	let lista = [];
+	let opciones = [];
+	Object.keys(aptitudes).forEach(function (item) {
+		if(responseJson[item] > 0){
+			lista.push(item)
+		}
+
+		console.log(item); // key
+		console.log(lunch[item]); // value
+});
+}
+	//cada vez que se presiona un boton se guarda su peso y se cambia a la
+	//siguiente pregunta
+async	function botonPrecionado(peso) {
+		switch (peso) {
+			case 10:
+				addPeso(peso);
+				break;
+			case 6.6:
+				addPeso(peso);
+				break;
+			case 3.3:
+				addPeso(peso);
+				break;
+			case 0:
+				addPeso(peso);
+				break;
+			default:
+		}
 		indicePregunta++;
-		cambiarPregunta();
+		if(indicePregunta < preguntas.length){
+			cambiarPregunta();
+		}
+		else {
+			console.log(aptitudes);
+			analizarAptitudes();
+			let json = await getCarrera();
+			console.log(json);
+			alert("analizando carrera");
+		}
 	}
-	document.getElementById("pregunta1").onclick = function(){
-		botonPrecionado()
-	}
-	document.getElementById("pregunta2").onclick = function(){
-		botonPrecionado()
-	}
-	document.getElementById("pregunta3").onclick = function(){
-		botonPrecionado()
-	}
-	document.getElementById("pregunta4").onclick = function(){
-		botonPrecionado()
-	}
+
 
 </script>
 </html>
