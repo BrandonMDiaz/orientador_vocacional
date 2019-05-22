@@ -2,7 +2,7 @@
 <html>
 <head>
 	<title>Orientador Vocacional</title>
-	<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='main.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='index1.css')}}">
 </head>
 <body>
 	<div class="titulo">
@@ -24,6 +24,13 @@
 		</div>
 	</div>
 
+	<div class="bg-modal">
+		<div class="modal-content">
+			<p class="titulo-modal">Abogado!!</p>
+			<button id="otra">Buscar otra opcion</button>
+			<button id="refresh">Repetir</button>
+		</div>
+	</div>
 </body>
 <script type="text/javascript">
 
@@ -55,6 +62,9 @@
 	}
 
 	let indicePregunta = 0;
+	let indexCarrera = 0;
+	let listaCarr = [];
+
 	let preguntas = [
 	["¿Qué tanto te gusta resolver problemas matematicos?",["mate"]],
 	["¿Te gusta Leer y ser autodidacta?",["linguistico_verbal"]],
@@ -91,6 +101,7 @@
 	}
 	];
 
+
 //**********************************//
 //***********Funciones *************//
 //**********************************//
@@ -110,6 +121,17 @@
 		document.getElementById("respuesta4").innerHTML = respuestas[indicePregunta].respuesta4
 	}
 
+	document.getElementById("otra").onclick = function(){
+		indexCarrera++;
+
+		if(indexCarrera < listaCarr.length){
+			document.querySelector(".titulo-modal").innerHTML = listaCarr[indexCarrera];
+		}
+	}
+	document.getElementById("refresh").onclick = function(){
+		// document.querySelector(".bg-modal").style.display = 'none';
+		location.reload();
+	}
 	document.getElementById("respuesta1").onclick = function(){
 		botonPrecionado(10)
 	}
@@ -148,6 +170,7 @@
 	}
 
 	function getCarrera(){
+		console.log(responseJson);
 		return fetch('http://127.0.0.1:5000/api', {
 				headers: {
 					'Accept': 'application/json',
@@ -191,19 +214,22 @@
 			}
 		});
 	}
-
-function showCarreras(){
-	let lista = [];
-	let opciones = [];
-	Object.keys(aptitudes).forEach(function (item) {
-		if(responseJson[item] > 0){
-			lista.push(item)
+function showCarreras(carreras){
+	listaCarr = carreras;
+		// Object.keys(carreras).forEach(function (item) {
+		// 	if(carreras[item] > 0){
+		// 		listaCarr.push(item)
+		// 	}
+		// });
+		if (listaCarr.length === 0){
+			document.querySelector(".bg-modal").style.display = 'flex';
+			document.querySelector(".titulo-modal").innerHTML = "Intenta otra vez :("
 		}
-
-		console.log(item); // key
-		console.log(lunch[item]); // value
-});
-}
+		else {
+			document.querySelector(".bg-modal").style.display = 'flex';
+			document.querySelector(".titulo-modal").innerHTML = listaCarr[indexCarrera];
+		}
+	}
 	//cada vez que se presiona un boton se guarda su peso y se cambia a la
 	//siguiente pregunta
 async	function botonPrecionado(peso) {
@@ -227,11 +253,13 @@ async	function botonPrecionado(peso) {
 			cambiarPregunta();
 		}
 		else {
-			console.log(aptitudes);
 			analizarAptitudes();
 			let json = await getCarrera();
-			console.log(json);
-			alert("analizando carrera");
+			console.log(json.message);
+
+			showCarreras(json.message);
+			console.log(aptitudes);
+			indicePregunta = 0;
 		}
 	}
 

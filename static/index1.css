@@ -1,7 +1,7 @@
 body{
 	background: #eaecef;
 }
-/*
+
 .titulo{
 	text-align: center;
 	font-size: 50px;
@@ -11,7 +11,7 @@ body{
  	margin-left: 10%;
  	background: #333;
  	color: #ffffff;
-} */
+}
 .contenedor-preguntas{
 	padding: 20px;
 	text-align: center;
@@ -57,6 +57,9 @@ body{
 	padding: 20px;
 	position: relative;
 	border-radius: 4px;
+}
+.titulo-modal{
+  font-size: 60px;
 }
 button{
 		background-color: #333; /* Green */
