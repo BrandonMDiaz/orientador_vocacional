@@ -1,8 +1,12 @@
 from flask import Flask, render_template, request, jsonify, make_response
 from flask import jsonify
 from pyswip import Prolog
+from flask_cors import CORS
 import json
+
 app = Flask(__name__) #el nombre del modulo
+CORS(app)
+# cors = CORS(app, resources={r"/foo": {"origins": "http://localhost:port"}})
 
 @app.route("/")
 def index():
