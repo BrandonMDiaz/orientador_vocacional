@@ -20,7 +20,7 @@ def api():
     print(data);
     # consultamos nuestro archivo de prolog
     prolog.consult("engine.pl");
-
+    prolog.assertz("persona(fs)");
     #vemos que conocimientos tiene el usuario y los agregamos
     # a la DB de prolog
     if data['linguistico'] > 0:
